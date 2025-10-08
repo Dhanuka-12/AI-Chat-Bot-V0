@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import { webhookVerificationDto } from "../dto/webhookVerification.dto";
 import { APP_CONFIG } from "../config/app.config";
+import { WebhhookVerificationResponseDto } from "../dto/webhookVerificationResponse.dto";
 
 export class webhookService {
     private static instance: webhookService;
@@ -18,13 +19,19 @@ export class webhookService {
 
     }
 
-    public handlewebhookVerification(data: webhookVerificationDto) {
+    public handlewebhookVerification(data: webhookVerificationDto):WebhhookVerificationResponseDto {
         const password = APP_CONFIG.WEBHOOK_VERIFICATION_PASSWORD;
 
         if(data.mode === 'subscribe' && data.verify_token === password) {
-            return data.challenge;
+            return {
+                status: true,
+                challenge: data.challenge
+            }
         }
-        return 'Error, wrong token';
+        return {
+            status: false,
+            challenge: ''
+        };
     }
 
 }
