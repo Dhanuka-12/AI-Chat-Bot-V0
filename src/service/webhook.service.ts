@@ -1,17 +1,18 @@
 import {Request, Response} from "express";
-import { webhookVerificationDto } from "../dto/webhookVerification.dto";
 import { APP_CONFIG } from "../config/app.config";
-import { WebhhookVerificationResponseDto } from "../dto/webhookVerificationResponse.dto";
+import { webhookVerificationDto, WebhookVerificationResponseDto } from "../dto/webhookVerification.dto";
 
-export class webhookService {
-    private static instance: webhookService;
 
-    public static getInstance(): webhookService {
-        if (!webhookService.instance) {
-            webhookService.instance = new webhookService();
+
+export class WebhookService {
+    private static instance: WebhookService;
+
+    public static getInstance(): WebhookService {
+        if (!WebhookService.instance) {
+            WebhookService.instance = new WebhookService();
         }
 
-        return webhookService.instance;
+        return WebhookService.instance;
 
     }
 
@@ -19,7 +20,7 @@ export class webhookService {
 
     }
 
-    public handlewebhookVerification(data: webhookVerificationDto):WebhhookVerificationResponseDto {
+    public handlewebhookVerification(data: webhookVerificationDto):WebhookVerificationResponseDto {
         const password = APP_CONFIG.WEBHOOK_VERIFICATION_PASSWORD;
 
         if(data.mode === 'subscribe' && data.verify_token === password) {

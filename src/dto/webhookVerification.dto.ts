@@ -4,7 +4,9 @@ export interface webhookVerificationDto {
     mode: string;
 }
 
-export interface webhookMessageDto {
+export interface WebhookVerificationResponseDto {
     status: boolean;
     challenge: string;
 }
+
+

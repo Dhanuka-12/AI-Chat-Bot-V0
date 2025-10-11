@@ -1,28 +1,36 @@
 import { Request, Response } from "express";
-import { webhookService } from "../service/webhook.service";
+import { WebhookService } from "../service/webhook.service";
 
 export class WebhookController {
 
-    private webhookService: webhookService;
+    private webhookService: WebhookService;
 
     constructor(){
-        this.webhookService = webhookService.getInstance();
+        this.webhookService = WebhookService.getInstance();
     }
 
     webhook = async (req: Request, res: Response) => {
-        this.webhookService.handlewebhook(req,res);
-        console.log(JSON.stringify(req.query));
-        const mood = req.query['hub.mode'];
-        const challenge = req.query['hub.challenge'];
-        let verify_token = req.query['hub.verify_token'];
+        const mode = req.query['hub.mode'] as string;
+        const challenge = req.query['hub.challenge'] as string;
+        let verify_token = req.query['hub.verify_token'] as string;
         
-        console.log(mood,challenge, verify_token);
-          
+       
+        const data = {
+            mode,
+            challenge,
+            verify_token
+        }
+        const response = this.webhookService.handlewebhookVerification(data);
+        if (response.status) {
+            res.send(response.challenge);
+            return
+        }
+        res.send('Error, Wrong token');
+
     }
-    
+
     webhookMessage = async (req: Request, res: Response) => {
-            console.log(JSON.stringify(req.body));
-            
+        console.log(JSON.stringify(req.body));  
     }
 
 }
