@@ -1,0 +1,39 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "4125151571070324",
+      "changes": [
+        {
+          "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "15551805255",
+              "phone_number_id": "763197253552385"
+            },
+            "contacts": [
+              {
+                "profile": {
+                  "name": "I am Dhanuka"
+                },
+                "wa_id": "94775461029"
+              }
+            ],
+            "messages": [
+              {
+                "from": "94775461029",
+                "id": "wamid.HBgLOTQ3NzU0NjEwMjkVAgASGBYzRUIwNkFDMzI0MjgxMTIxRUVEM0Q5AA==",
+                "timestamp": "1759858803",
+                "text": {
+                  "body": "where u from"
+                },
+                "type": "text"
+              }
+            ]
+          },
+          "field": "messages"
+        }
+      ]
+    }
+  ]
+}
