@@ -44,7 +44,13 @@ export class WebhookService {
         const name = data.entry[0].changes[0].value.contacts[0].profile.name;
 
         const replyMessage = `Hello ${name}, Your message recieved`;
-        return true;
+
+        const isReplied = await this.messageService.sendMessage(phoneNumber, replyMessage);
+
+        if(!isReplied){
+            return true;
+        }
+        return false;
     }
 
 }

@@ -37,9 +37,17 @@ export class MessageService {
             data: data
         };
 
-        const response = await axios.request(config)
-        return response;
-            
-    }
+        try{
+            const response = await axios.request(config)
+            if(response.status === 200){
+                return true;
+            }
+        }catch(error){
+            console.log(error);
+        }
+        return false;
 
+        }
+            
 }
+
