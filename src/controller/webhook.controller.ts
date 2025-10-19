@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { WebhookService } from "../service/webhook.service";
 import { WebhookMessageDto } from "../dto/webhookVerification.dto";
+import { json } from "stream/consumers";
 
 export class WebhookController {
 
@@ -36,8 +37,14 @@ export class WebhookController {
 
         const message = data.entry[0].changes[0].value.messages[0].text.body;
         const phoneNumber = data.entry[0].changes[0].value.contacts[0].wa_id;
+        const type = data.entry[0].changes[0].value.messages[0].type;
+        const name = data.entry[0].changes[0].value.contacts[0].profile.name;
 
-        console.log(message+" : "+phoneNumber);
+        console.log("====================================================");
+        console.log(phoneNumber+"["+name+"]  : "+message+" : "+type);
+        console.log("====================================================");
+
+        res.status(200).send('Ok');
     }
 
     
