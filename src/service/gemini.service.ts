@@ -1,7 +1,10 @@
 import { APP_CONFIG } from "../config/app.config";
+import { GoogleGenAI } from "@google/genai";
 
 export class GeminiService {
     private geminiApiKey: string;
+    private gemini: GoogleGenAI;
+
 
     private static instance: GeminiService;
     public static getInstance(): GeminiService {
@@ -12,6 +15,21 @@ export class GeminiService {
     }
     private constructor() {
         this.geminiApiKey = APP_CONFIG.GEMINI_API_KEY || '';
+        this.gemini = new GoogleGenAI({});
+    }
+
+    public async generateReply(message: string): Promise<string> {
+        try{
+            const response = await this.gemini.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: message,
+            });
+            return response.text || 'cannot generate reply';
+        }catch(error){
+            console.log(error);
+            return 'cannot generate reply';
+        }
+        
     }
 
 }
