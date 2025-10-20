@@ -42,18 +42,29 @@ export class WebhookService {
     }
 
     public async handleRecieveMessage(data: WebhookMessageDto): Promise<boolean> {
-        const message = data.entry[0].changes[0].value.messages[0].text.body;
-        const phoneNumber = data.entry[0].changes[0].value.contacts[0].wa_id;
-        const name = data.entry[0].changes[0].value.contacts[0].profile.name;
+        const status = data.entry[0].changes[0].value.statuses;
+        console.log(JSON.stringify(status));
+        try{
+            const message = data.entry[0].changes[0].value.messages[0].text.body;
+            const phoneNumber = data.entry[0].changes[0].value.contacts[0].wa_id;
+            const name = data.entry[0].changes[0].value.contacts[0].profile.name;
 
-        //const replyMessage = `Hello ${name}, Your message recieved`;
-        const replyMessage = await this.geminiService.generateReply(message);
-        const isReplied = await this.messageService.sendMessage(phoneNumber, replyMessage);
+            //const replyMessage = `Hello ${name}, Your message recieved`;
+            const replyMessage = await this.geminiService.generateReply(message);
+            const isReplied = await this.messageService.sendMessage(phoneNumber, replyMessage);
 
-        if(!isReplied){
+            
+
+            if(!isReplied){
+                return true;
+            }
+        }catch(error:any){
+            console.log(error.message);
             return true;
         }
+
         return false;
+        
     }
 
 }
