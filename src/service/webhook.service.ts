@@ -45,10 +45,18 @@ export class WebhookService {
         const status = data.entry[0].changes[0].value.statuses;
         if(status !== undefined && status.length > 0) {
             console.log('status:', status[0].status);
+            return true;
         }
         console.log(JSON.stringify(status));
         try{
-            const message = data.entry[0].changes[0].value.messages[0].text.body;
+            const message = data.entry[0].changes[0].value.messages[0].text?.body;
+
+            if(message === undefined){
+                console.log('message is undefined');
+                console.log(JSON.stringify(data));
+                return true;
+            }
+
             const phoneNumber = data.entry[0].changes[0].value.contacts[0].wa_id;
             const name = data.entry[0].changes[0].value.contacts[0].profile.name;
 
