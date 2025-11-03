@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { WebhookService } from "../service/webhook.service";
 import { WebhookMessageDto } from "../dto/webhookVerification.dto";
-import { json } from "stream/consumers";
+
 
 export class WebhookController {
 
@@ -38,7 +38,7 @@ export class WebhookController {
         const isReplied = await this.webhookService.handleRecieveMessage(data);
 
         if(isReplied){
-            res.status(200).send('Ok');
+            res.status(200).send('OK');
         }else{
             res.status(500).send('Error');
         }

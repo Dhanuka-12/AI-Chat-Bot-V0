@@ -1,8 +1,10 @@
 import axios from "axios";
 import { APP_CONFIG } from "../config/app.config";
 
+
 export class MessageService {
     private static instance: MessageService;
+    
 
     public static getInstance(): MessageService {
         if (!MessageService.instance) {
@@ -11,7 +13,7 @@ export class MessageService {
         return MessageService.instance;
     }
     private constructor() {
-
+        
     }
 
     public async sendMessage(phoneNumber: string, message: string) {

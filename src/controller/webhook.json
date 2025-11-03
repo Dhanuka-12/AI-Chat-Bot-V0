@@ -29,11 +29,30 @@
                 },
                 "type": "text"
               }
+            ],
+            "statuses": [
+              {
+                "id": "wamid.HBgLOTQ3NzU0NjEwMjkVAgARGBJFOUMxQzc5OUMyMjNEQTExMkUA",
+                "status": "read",
+                "timestamp": "1762181831",
+                "recipient_id": "94775461029",
+                "conversation": {
+                  "id": "ad2e35c3d9789554c9ec72ec85f69153",
+                  "origin": {
+                    "type": "service"
+                  }
+                },
+                "pricing": {
+                  "billable": false,
+                  "pricing_model": "PMP",
+                  "category": "service",
+                  "type": "free_customer_service"
+                }
+              }
             ]
-
           },
 
-
+          
           "field": "messages"
         }
       ]
