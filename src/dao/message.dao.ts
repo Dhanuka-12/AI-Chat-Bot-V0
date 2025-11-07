@@ -38,7 +38,7 @@ export class MessageDao {
             try {
                 return await Message.find({ userId: userId })
                 .sort({ createdAt: -1 })
-                .limit(5)
+                .limit(10)
                 .lean()
                 .exec();
             } catch (error) {

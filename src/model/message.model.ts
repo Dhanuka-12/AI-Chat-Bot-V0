@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export enum Role {
     USER = 'user',
-    ASSISTANT = 'assistant',
+    MODEL = 'model',
 }
 
 export interface IMessage {

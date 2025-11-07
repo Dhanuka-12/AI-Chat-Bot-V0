@@ -76,7 +76,7 @@ export class WebhookService {
 
             const newReplyMessage = {
                 userId: phoneNumber,
-                role: Role.ASSISTANT,
+                role: Role.MODEL,
                 content: replyMessage
             }
 
