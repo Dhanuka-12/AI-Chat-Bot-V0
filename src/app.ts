@@ -27,7 +27,7 @@ app.get('/health', (req, res) => {
 mongoose.connect(APP_CONFIG.MONGO_URI).then(() => {
     console.log('Connected to MongoDB');
     app.listen(8558,() => {
-
+        console.log("Server is running on port 8558");
     });
 }).catch((err) => {
     console.error(err);
