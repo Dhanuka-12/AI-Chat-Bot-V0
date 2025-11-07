@@ -73,6 +73,15 @@ export class MessageService {
             throw error;
         }
     }
+
+    public async bulkCreateMessages(messages:IMessage[]):Promise<IMessage[]> {
+        try{
+            return await this.messageDao.bulkCreateMessages(messages);
+        }catch(error){
+            console.log(error);
+            throw error;
+        }
+    }
             
 }
 

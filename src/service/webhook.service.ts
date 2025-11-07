@@ -3,6 +3,7 @@ import { APP_CONFIG } from "../config/app.config";
 import { WebhookMessageDto, webhookVerificationDto, WebhookVerificationResponseDto } from "../dto/webhookVerification.dto";
 import { MessageService } from "./message.service";
 import { GeminiService } from "./gemini.service";
+import { Role } from "../model/message.model";
 
 
 
@@ -67,6 +68,20 @@ export class WebhookService {
 
             //const replyMessage = `Hello ${name}, Your message recieved`;
             const replyMessage = await this.geminiService.generateReply(message, history);
+            const newMessage = {
+                userId: phoneNumber,
+                role: Role.USER,
+                content: message
+            }
+
+            const newReplyMessage = {
+                userId: phoneNumber,
+                role: Role.ASSISTANT,
+                content: replyMessage
+            }
+
+            await this.messageService.bulkCreateMessages([newMessage, newReplyMessage]);
+
             const isReplied = await this.messageService.sendMessage(phoneNumber, replyMessage);
 
             

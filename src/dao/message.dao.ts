@@ -14,7 +14,7 @@ export class MessageDao {
 
     }
 
-    public async saveMessage(message:IMessage):Promise<IMessage> {
+    public async createMessage(message:IMessage):Promise<IMessage> {
         try{
             const newMessage = new Message(message);
             return await newMessage.save();
@@ -23,6 +23,15 @@ export class MessageDao {
             throw error;
         }
         
+    }
+
+    public async bulkCreateMessages(messages:IMessage[]):Promise<IMessage[]> {
+        try{
+            return await Message.insertMany(messages);
+        }catch(error){
+            console.log(error);
+            throw error;
+        }
     }
 
     public async getMessagesByUserId(userId: string): Promise<IMessage[]> {
