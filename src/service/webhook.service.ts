@@ -49,7 +49,10 @@ export class WebhookService {
         }
         console.log(JSON.stringify(status));
         try{
+
             const message = data.entry[0].changes[0].value.messages[0].text?.body;
+
+            
 
             if(message === undefined){
                 console.log('message is undefined');
@@ -60,8 +63,10 @@ export class WebhookService {
             const phoneNumber = data.entry[0].changes[0].value.contacts[0].wa_id;
             const name = data.entry[0].changes[0].value.contacts[0].profile.name;
 
+            const history = await this.messageService.getMessagesByUserId(phoneNumber);
+
             //const replyMessage = `Hello ${name}, Your message recieved`;
-            const replyMessage = await this.geminiService.generateReply(message);
+            const replyMessage = await this.geminiService.generateReply(message, history);
             const isReplied = await this.messageService.sendMessage(phoneNumber, replyMessage);
 
             

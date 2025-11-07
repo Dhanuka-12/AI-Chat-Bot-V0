@@ -1,9 +1,13 @@
 import axios from "axios";
 import { APP_CONFIG } from "../config/app.config";
+import { IMessage } from "../model/message.model";
+import { MessageDao } from "../dao/message.dao";
+import { IMessageHistory } from "../dto/messageHistory.dto";
 
 
 export class MessageService {
     private static instance: MessageService;
+    private messageDao : MessageDao;
     
 
     public static getInstance(): MessageService {
@@ -13,6 +17,7 @@ export class MessageService {
         return MessageService.instance;
     }
     private constructor() {
+        this.messageDao = MessageDao.getInstance();
         
     }
 
@@ -50,7 +55,24 @@ export class MessageService {
         }
         return false;
 
+    }
+
+    public async getMessagesByUserId(userId: string): Promise<IMessageHistory[]> {
+        try{
+            const messages =  await this.messageDao.getMessagesByUserId(userId);
+            const history: IMessageHistory[] = messages.map((message)=>{
+                return {
+                    role: message.role,
+                    parts: [{text: message.content}]    
+                }
+            });
+
+            return history;
+        }catch(error){
+            console.log(error);
+            throw error;
         }
+    }
             
 }
 
