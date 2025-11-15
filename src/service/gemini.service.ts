@@ -26,7 +26,7 @@ export class GeminiService {
                 history: history,
             });
             const response = await chat.sendMessage({
-                message: "I have 2 dogs in my house.",
+                message: message,
             });
 
             return response.text || 'Cannot generate reply';

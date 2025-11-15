@@ -48,7 +48,7 @@ export class WebhookService {
             console.log('status:', status[0].status);
             return true;
         }
-        console.log(JSON.stringify(status));
+        //console.log(JSON.stringify(status));
         try{
 
             const message = data.entry[0].changes[0].value.messages[0].text?.body;
