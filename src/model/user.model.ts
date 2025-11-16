@@ -9,6 +9,7 @@ export interface IUser {
     _id: string;
     name: string;
     phoneNumber: string;
+    type: UserType;
     createdAt?:Date;
     updatedAt?: Date;
 
