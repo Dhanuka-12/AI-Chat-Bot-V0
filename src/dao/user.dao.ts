@@ -1,3 +1,5 @@
+
+import { create } from "domain";
 import { IUser, User } from "../model/user.model";
 
 export class UserDao {
@@ -13,7 +15,12 @@ export class UserDao {
     public async createUser(user: IUser): Promise<IUser> {
         try{
             const newUser = new User(user);
+            const createdUser = await newUser.save();
             return await newUser.save();
+            //createdUser.phoneNumber = '';
+            //createdUser.save();
+
+            return createdUser.toJSON() as IUser;
         }catch(error){
             console.log(error);
             throw error;
