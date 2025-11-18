@@ -6,7 +6,9 @@ export enum UserType{
 }
 
 export interface IUser {
-    _id: string;
+    _id?: string;
+    email: string;
+    password: string;
     name: string;
     phoneNumber: string;
     type: UserType;
@@ -18,6 +20,8 @@ export interface IUser {
 export const UserSchema = new mongoose.Schema(
     {
         name: {type: String, required: true},
+        email: {type: String, required: true},
+        password: {type: String, required: true},
         phoneNumber: {type: String, required: true},
         type: {type: String, enum: Object.values(UserType), required: true},
     },

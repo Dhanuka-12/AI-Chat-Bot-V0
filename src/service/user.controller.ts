@@ -1,7 +1,8 @@
+import { UserDao } from "../dao/user.dao";
 import { IUser } from "../model/user.model";
 
 export class UserService{
-    private userDao: UserService;
+    private userDao: UserDao;
     public static instance: UserService;
 
     public static getInstance(): UserService {
@@ -12,7 +13,7 @@ export class UserService{
     }
 
     private constructor() {
-        this.userDao = UserService.getInstance();
+        this.userDao = UserDao.getInstance();
     }
 
     public async createUser(user:IUser):Promise<IUser>{
