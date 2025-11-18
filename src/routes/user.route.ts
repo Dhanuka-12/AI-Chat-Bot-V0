@@ -16,6 +16,7 @@ export class UserRouter{
     constructor() {
         this.router = Router();
         this.userController = new UserController();
+        this.initRoutes(); 
     }
 
     public initRoutes() {
