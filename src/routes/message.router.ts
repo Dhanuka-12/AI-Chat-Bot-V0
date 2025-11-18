@@ -18,4 +18,13 @@ export class MessageRouter{
         }
         return MessageRouter.instance;
     }
+
+    public initRoutes(){
+        this.router.post("/", this.messageController.sendMessage);
+    }
+
+    public getRouter(): Router {
+        return this.router;
+    }
+
 }

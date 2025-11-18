@@ -7,6 +7,9 @@ import { WebhookController } from "./controller/webhook.controller";
 import mongoose from "mongoose";
 import { User } from "./model/user.model";
 import { UserController } from "./controller/user.controller";
+import { webhookRouter } from "./routes/webhook.router";
+import { MessageRouter } from "./routes/message.router";
+import { UserRouter } from "./routes/user.route";
 
 
 
@@ -16,15 +19,14 @@ import { UserController } from "./controller/user.controller";
 const app = express();
 app.use(express.json());
 
-const messageController = new MessageController();
-const webhookController = new WebhookController();
-const userController = new UserController();
+const WebhookRouter = webhookRouter.getInstance();
+const messageRouter = MessageRouter.getInstance();
+const userRouter = UserRouter.getInstance();
 
-app.post("/send-message",messageController.sendMessage);
-app.get("/webhook", webhookController.webhook);
-app.post("/webhook", webhookController.webhookMessage);
-
-app.post("/user", userController.createUser);
+//app.post("/send-message",messageController.sendMessage);
+app.use("/webhook", WebhookRouter.getRouter());
+app.use("/user", userRouter.getRouter());
+app.use("/message", messageRouter.getRouter()); 
 
 app.get('/health', (req, res) => {
     res.send('OK');
