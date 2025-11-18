@@ -6,6 +6,7 @@ export class webhookRouter{
     private constructor() {
         this.router = Router();
         this.webhookController = new WebhookController();
+        this.initRoutes();
     }
 
     private static instance : webhookRouter;

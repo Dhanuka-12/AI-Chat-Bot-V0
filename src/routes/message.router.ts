@@ -3,10 +3,7 @@ import { MessageController } from "../controller/message.controller";
 
 export class MessageRouter{
     private router: Router;
-    private constructor() {
-        this.router = Router();
-        this.messageController = new MessageController();
-    }
+    
 
     private static instance : MessageRouter;
     
@@ -17,6 +14,12 @@ export class MessageRouter{
             MessageRouter.instance = new MessageRouter();
         }
         return MessageRouter.instance;
+    }
+
+    private constructor() {
+        this.router = Router();
+        this.messageController = new MessageController();
+        this.initRoutes();
     }
 
     public initRoutes(){
