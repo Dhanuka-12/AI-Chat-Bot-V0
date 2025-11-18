@@ -37,7 +37,7 @@ export interface WebhookMessageDto {
                                 timestamp: string;
                                 text: {
                                     body: string;
-                                },
+                                }
                                 type: string;
                             }
                         ],

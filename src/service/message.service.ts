@@ -46,7 +46,7 @@ export class MessageService {
 
         try{
             const response = await axios.request(config)
-            if(response.status >= 200 && response.status <= 300){
+            if(response.status === 200){
                 console.log('Reply sent to',phoneNumber);
                 return true;
             }
