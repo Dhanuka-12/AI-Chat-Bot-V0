@@ -48,8 +48,8 @@ export class UserService{
 
             return userWithoutPassword;
 
-        }catch(error){
-            console.error(error);
+        }catch(error:any){
+            console.error(error.message);
             throw error;
         } 
     }
