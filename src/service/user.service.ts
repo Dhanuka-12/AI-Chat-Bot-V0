@@ -22,8 +22,11 @@ export class UserService{
         try{
             const createdUser = await this.userDao.createUser(user);
             return createdUser;
-        }catch(error){
-
+        }catch(error:any){
+            console.log(error);
+            if(error.code === 11000){
+                throw new Error(Errors.USER_ALREADY_EXISTS);
+            }
             console.log(error);
             throw error;
         }

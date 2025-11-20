@@ -32,7 +32,15 @@ app.get('/health', (req, res) => {
     res.send('OK');
 });
 
-mongoose.connect(APP_CONFIG.MONGO_URI).then(() => {
+mongoose.connect(APP_CONFIG.MONGO_URI).then((mongoose) => {
+    const models = mongoose.modelNames();
+    for (const model of models) {
+        mongoose.model(model).createIndexes();
+        console.log(`Indexes created for model: ${model}`);
+        mongoose.model(model).ensureIndexes();
+        mongoose.model(model).createCollection();
+    }
+
     console.log('Connected to MongoDB');
     app.listen(8558,() => {
         console.log("Server is running on port 8558");
