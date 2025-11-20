@@ -1,5 +1,7 @@
 import { UserDao } from "../dao/user.dao";
 import { IUser } from "../model/user.model";
+import { Errors } from "../constants/errors.constants";
+import { LoginDto } from "../dto/login/login.dto";
 
 export class UserService{
     private userDao: UserDao;
@@ -25,5 +27,25 @@ export class UserService{
             console.log(error);
             throw error;
         }
+    }
+
+    public async login(user: LoginDto): Promise <Partial<IUser>>{
+        try{
+            const loginUser = await this.userDao.getUserByEmail(user.email);
+            if(!loginUser){
+                throw new Error(Errors.USER_NOT_FOUND);
+            }
+            if(loginUser.password !== user.password){
+                throw new Error(Errors.INVALID_PASSWORD);
+            }
+
+            const {password,createdAt, updatedAt, ...userWithoutPassword} = loginUser;
+
+            return userWithoutPassword;
+
+        }catch(error){
+            console.error(error);
+            throw error;
+        } 
     }
 }

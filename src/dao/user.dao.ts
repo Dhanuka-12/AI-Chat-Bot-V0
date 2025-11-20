@@ -27,4 +27,13 @@ export class UserDao {
         }
     }
 
+    public async getUserByEmail(email: string): Promise<IUser> {
+        try{
+            return await User.findOne({email: email}).lean().exec() as IUser;
+        }catch(error){
+            console.error(error);
+            throw error;
+        }
+    }
+
 }
