@@ -22,7 +22,6 @@ export class UserDao {
 
             return createdUser.toJSON() as IUser;
         }catch(error){
-            console.log(error);
             throw error;
         }
     }

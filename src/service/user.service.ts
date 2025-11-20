@@ -2,6 +2,7 @@ import { UserDao } from "../dao/user.dao";
 import { IUser } from "../model/user.model";
 import { Errors } from "../constants/errors.constants";
 import { LoginDto } from "../dto/login/login.dto";
+import e from "express";
 
 export class UserService{
     private userDao: UserDao;
@@ -25,6 +26,7 @@ export class UserService{
         }catch(error:any){
             console.log(error);
             if(error.code === 11000){
+                console.log(error.errorResponse.errmsg);
                 throw new Error(Errors.USER_ALREADY_EXISTS);
             }
             console.log(error);
