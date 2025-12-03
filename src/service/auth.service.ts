@@ -30,24 +30,32 @@ export class AuthService {
                 throw new Error(Errors.INVALID_PASSWORD);
             }
 
-            const accessToken = jwt.sign(
-                {id: loginUser._id, type:loginUser.type}, 
-                APP_CONFIG.ACCESS_TOKEN_SECRET as string, 
-                {expiresIn: '1h'}
-            );
+            
 
-            const refreshToken = jwt.sign(
-                { id: loginUser._id, type: loginUser.type }, 
-                APP_CONFIG.REFRESH_TOKEN_SECRET as string, 
-                { expiresIn: '1d' }
-            );
-
-            return {accessToken, refreshToken}
+            return await this.generateTokens(loginUser);
 
 
         }catch (error:any) {
             throw error;
         }
     }
+
+    public async generateTokens(user: IUser): Promise<LoginResponseDto> {
+
+        const accessToken = jwt.sign(
+                {id: user._id, type:user.type}, 
+                APP_CONFIG.ACCESS_TOKEN_SECRET as string, 
+                {expiresIn: '1h'}
+            );
+
+            const refreshToken = jwt.sign(
+                { id: user._id, type: user.type }, 
+                APP_CONFIG.REFRESH_TOKEN_SECRET as string, 
+                { expiresIn: '1d' }
+            );
+            return {accessToken, refreshToken}
+        }
+
+        
       
 }

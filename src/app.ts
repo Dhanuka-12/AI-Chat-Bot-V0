@@ -10,6 +10,7 @@ import { UserController } from "./controller/user.controller";
 import { webhookRouter } from "./routes/webhook.router";
 import { MessageRouter } from "./routes/message.router";
 import { UserRouter } from "./routes/user.route";
+import { AuthRouter } from "./routes/auth.route";
 
 
 
@@ -22,11 +23,13 @@ app.use(express.json());
 const WebhookRouter = webhookRouter.getInstance();
 const messageRouter = MessageRouter.getInstance();
 const userRouter = UserRouter.getInstance();
+const authRouter = AuthRouter.getInstance();
 
 //app.post("/send-message",messageController.sendMessage);
 app.use("/webhook", WebhookRouter.getRouter());
 app.use("/user", userRouter.getRouter());
 app.use("/message", messageRouter.getRouter()); 
+app.use("/auth", authRouter.getRouter());
 
 app.get('/health', (req, res) => {
     res.send('OK');

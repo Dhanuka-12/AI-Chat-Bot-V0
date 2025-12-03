@@ -23,4 +23,8 @@ export class AuthRouter{
         this.router.post('/register', this.authController.register);
     }
 
-}
+    public getRouter(): Router {
+        return this.router;
+    }
+
+} 
