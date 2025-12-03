@@ -1,20 +1,19 @@
+import { Request, Response } from "express";
 import { Errors } from "../constants/errors.constants";
 import { LoginDto } from "../dto/login/login.dto";
-import { IUser } from "../model/user.model";
 import { AuthService } from "../service/auth.service";
+import { IUser } from "../model/user.model";
 import { UserService } from "../service/user.service";
-import { Request, Response } from "express";
 
-
-export class UserController {
-    private userService: UserService;
+export class Authcontroller{
     private authService: AuthService;
-    constructor() {
-        this.userService = UserService.getInstance();
+    private userService: UserService;
+    constructor(){
         this.authService = AuthService.getInstance();
+        this.userService = UserService.getInstance();
     }
 
-    createUser = async (req: Request, res: Response) => {
+    register = async (req: Request, res: Response) => {
         const user = req.body as unknown as IUser;
         if(!user.name || !user.phoneNumber){
             res.status(400).json({message: 'Name and Phone Number are required'});
@@ -33,6 +32,9 @@ export class UserController {
             }
         }
     }
+
+
+
 
     login = async (req: Request, res: Response) => {
         const user = req.body as unknown as LoginDto;
@@ -55,4 +57,5 @@ export class UserController {
         }
 
     }
+
 }

@@ -20,9 +20,7 @@ export class UserRouter{
     }
 
     public initRoutes() {
-        this.router.post("/", this.userController.createUser);
 
-        this.router.post("/login", this.userController.login);
     }
 
     public getRouter(): Router {
