@@ -20,7 +20,8 @@ export class UserRouter{
     }
 
     public initRoutes() {
-
+        this.router.post("/hello", this.userController.hello);
+        this.router.get("/me", this.userController.getCurrentUser);
     }
 
     public getRouter(): Router {

@@ -14,45 +14,27 @@ export class UserController {
         this.authService = AuthService.getInstance();
     }
 
-    createUser = async (req: Request, res: Response) => {
-        const user = req.body as unknown as IUser;
-        if(!user.name || !user.phoneNumber){
-            res.status(400).json({message: 'Name and Phone Number are required'});
-            return;
-        }
-        try{
-            const createdUser = await this.userService.createUser(user);
-            res.status(201).json(createdUser);
-        }catch(error:any){
-            if(error.message === Errors.USER_ALREADY_EXISTS){
-                res.status(409).json({message: 'User already exists'});
-                return;
-            }else{
-                res.status(500).json({message: 'Internal server error'});
-                return;
-            }
-        }
+    hello = async (req: Request, res: Response) => {
+        res.status(200).json({message: 'Hello'});
     }
 
-    login = async (req: Request, res: Response) => {
-        const user = req.body as unknown as LoginDto;
+    getCurrentUser = async (req: Request, res: Response) => {
+        
 
         try{
-            const loginUser = await this.authService.login(user);
-
-            res.status(200).json(loginUser);
+            const token = req.headers.authorization;
+            const decoded = this.authService.verifyToken(token as string);
+            const user = this.userService.getUserById(decoded.id);
+            console.log(user);
+            res.status(200).json({user});
         }catch(error:any){
-            if(error.message === Errors.USER_NOT_FOUND){
-                res.status(404).json({message: 'User not found'});
-                return;
-            }else if(error.message === Errors.INVALID_PASSWORD){
-                res.status(401).json({message: 'Invalid password'});
+            if(error.message === Errors.INVALID_TOKEN){
+                res.status(401).json({message: 'Invalid token'});
                 return;
             }else{
                 res.status(500).json({message: 'Internal server error'});
                 return;
             }
         }
-
     }
 }

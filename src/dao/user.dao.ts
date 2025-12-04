@@ -1,6 +1,7 @@
 
 import { create } from "domain";
 import { IUser, User } from "../model/user.model";
+import mongoose from "mongoose";
 
 export class UserDao {
     private static instance: UserDao;
@@ -29,6 +30,15 @@ export class UserDao {
     public async getUserByEmail(email: string): Promise<IUser> {
         try{
             return await User.findOne({email: email}).lean().exec() as IUser;
+        }catch(error){
+            console.error(error);
+            throw error;
+        }
+    }
+
+    public async getUserById(id: string, withPassword: 0|1 = 0): Promise<IUser> {
+        try{
+            return await User.findById(new mongoose.Types.ObjectId(id),{password:withPassword}).lean().exec() as IUser;
         }catch(error){
             console.error(error);
             throw error;
