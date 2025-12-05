@@ -41,4 +41,13 @@ export class UserService{
             throw error;
         }
     }
+
+    public async updateUser(id:string, user: Partial<IUser>):Promise<IUser>{
+        try{
+            return await this.userDao.updateUser(id, user);
+        }catch(error:any){
+            console.log(error);
+            throw error;
+        }
+    }
 }
